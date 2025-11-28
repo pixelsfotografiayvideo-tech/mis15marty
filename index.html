@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mis XV - Agustina</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        /* --- CONFIGURACIÓN DE COLORES (CAMBIAR AQUÍ SI ES NECESARIO) --- */
+        :root {
+            /* Paleta base: Rosa Viejo / Dorado / Crema */
+            --primary-color: #d4a373; /* Dorado suave */
+            --accent-color: #e2b4bd;  /* Rosa Agustina */
+            --bg-color: #faf9f6;      /* Blanco hueso */
+            --text-color: #555555;
+            --dark-bg: #2c2c2c;
+        }
+
+        /* --- ESTILOS GENERALES --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            text-align: center;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3 { font-weight: normal; }
+        
+        .font-script { font-family: 'Great Vibes', cursive; }
+        .font-serif { font-family: 'Playfair Display', serif; }
+
+        /* --- BOTÓN DE MÚSICA FLOTANTE --- */
+        .music-fab {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 50px;
+            height: 50px;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            cursor: pointer;
+            border: 1px solid var(--primary-color);
+            transition: transform 0.3s;
+        }
+        .music-rotating { animation: spin 4s linear infinite; }
+        .music-fab i { color: var(--primary-color); font-size: 1.2rem; }
+
+        /* --- HERO SECTION (PORTADA) --- */
+        header {
+            height: 100vh;
+            /* IMAGEN DE FONDO - REEMPLAZAR URL */
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1512141633501-8eb941885b5f?q=80&w=2000&auto=format&fit=crop') no-repeat center center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            position: relative;
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            animation: fadeInDown 1.5s ease;
+        }
+
+        .hero-title {
+            font-size: 6rem;
+            margin: 0;
+            line-height: 1.1;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+            animation: zoomIn 2s ease;
+        }
+
+        .hero-date {
+            margin-top: 20px;
+            font-size: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.8);
+            border-bottom: 1px solid rgba(255,255,255,0.8);
+            padding: 10px 30px;
+            animation: fadeInUp 1.5s ease;
+        }
+
+        .arrow-down {
+            position: absolute;
+            bottom: 30px;
+            animation: bounce 2s infinite;
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+
+        /* --- FRASE / INTRO --- */
+        .intro {
+            padding: 80px 20px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .intro-text {
+            font-style: italic;
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #777;
+        }
+
+        /* --- COUNTDOWN --- */
+        .countdown-section {
+            background-color: #fff;
+            padding: 60px 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+            margin: 0 20px;
+            border-radius: 20px;
+            position: relative;
+            top: -30px;
+        }
+
+        .timer-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .time-box {
+            background-color: var(--accent-color);
+            color: white;
+            width: 75px;
+            height: 75px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(226, 180, 189, 0.4);
+        }
+        .time-number { font-size: 1.5rem; font-weight: 600; line-height: 1; }
+        .time-label { font-size: 0.6rem; text-transform: uppercase; margin-top: 5px; }
+
+        /* --- SECCIONES COMUNES --- */
+        .section-title {
+            font-size: 3.5rem;
+            color: var(--primary-color);
+            margin-bottom: 40px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+        }
+
+        /* --- UBICACIONES (CARDS) --- */
+        .locations {
+            padding: 60px 20px;
+            background-image: url('https://www.transparenttextures.com/patterns/cream-paper.png');
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .location-card {
+            background: #fff;
+            padding: 40px 20px;
+            border-radius: 15px;
+            border: 1px solid #eee;
+            transition: transform 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .location-card:hover { transform: translateY(-5px); }
+
+        .card-icon { font-size: 2.5rem; color: var(--primary-color); margin-bottom: 20px; }
+        .card-title { font-size: 1.5rem; margin-bottom: 10px; color: #333; }
+        .card-time { font-weight: 600; margin-bottom: 15px; display: block; color: var(--accent-color); }
+        .card-address { color: #666; margin-bottom: 25px; font-size: 0.9rem; min-height: 40px;}
+
+        /* --- BOTONES --- */
+        .btn-custom {
+            display: inline-block;
+            padding: 10px 25px;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            background: transparent;
+            cursor: pointer;
+        }
+
+        .btn-custom:hover { background: var(--primary-color); color: #fff; }
+
+        .btn-whatsapp {
+            background: #25D366;
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-size: 1rem;
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .btn-whatsapp:hover { background: #1ebc57; transform: scale(1.05); }
+
+        /* --- TIMELINE / ITINERARIO --- */
+        .timeline-section { padding: 60px 20px; max-width: 600px; margin: 0 auto; }
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 24px;
+            top: 50px;
+            bottom: -30px;
+            width: 1px;
+            background: #ddd;
+            z-index: 0;
+        }
+        .timeline-item:last-child::before { display: none; }
+        
+        .timeline-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--bg-color);
+            border: 1px solid var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            z-index: 1;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+        .timeline-content { text-align: left; }
+        .timeline-time { font-weight: 700; color: var(--accent-color); }
+
+        /* --- PARALLAX MID SECTION --- */
+        .parallax-divider {
+            height: 350px;
+            /* IMAGEN SEPARADORA - REEMPLAZAR URL */
+            background: url('https://images.unsplash.com/photo-1520052205864-92d242b3a76b?q=80&w=1500&auto=format&fit=crop') fixed center;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .parallax-text { 
+            color: white; 
+            font-size: 3rem; 
+            background: rgba(0,0,0,0.3); 
+            padding: 10px 30px;
+            border: 1px solid white;
+        }
+
+        /* --- DETALLES (GIFTS & DRESSCODE) --- */
+        .details-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            padding: 60px 20px;
+            background: #fff;
+        }
+        .detail-item { max-width: 300px; }
+        .detail-icon { font-size: 2.5rem; color: var(--accent-color); margin-bottom: 15px; }
+
+        /* --- FOOTER --- */
+        footer {
+            background: var(--dark-bg);
+            color: #888;
+            padding: 40px 20px;
+            font-size: 0.8rem;
+        }
+        .footer-logo {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2rem;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        /* --- ANIMATIONS KEYFRAMES --- */
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-10px);} 60% {transform: translateY(-5px);} }
+        @keyframes zoomIn { from {opacity: 0; transform: scale(0.5);} to {opacity: 1; transform: scale(1);} }
+    </style>
+</head>
+<body>
+
+    <audio id="bgMusic" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+    <div class="music-fab" onclick="toggleMusic()">
+        <i class="fas fa-music" id="musicIcon"></i>
+    </div>
+
+    <header>
+        <div class="hero-subtitle">MIS XV AÑOS</div>
+        <h1 class="hero-title font-script">Agustina</h1>
+        <div class="hero-date font-serif">20 • OCTUBRE • 2024</div>
+        <div class="arrow-down"><i class="fas fa-chevron-down"></i></div>
+    </header>
+
+    <section class="intro" data-aos="fade-up">
+        <i class="fas fa-quote-left" style="color: var(--accent-color); font-size: 1.5rem; margin-bottom: 15px;"></i>
+        <p class="intro-text font-serif">
+            "Hay momentos inolvidables que se atesoran en el corazón para siempre, 
+            por eso quiero que compartas conmigo esta noche tan especial."
+        </p>
+        <i class="fas fa-quote-right" style="color: var(--accent-color); font-size: 1.5rem; margin-top: 15px;"></i>
+    </section>
+
+    <section class="countdown-section" data-aos="zoom-in">
+        <h2 class="font-script section-title" style="font-size: 2.5rem; margin-bottom: 20px;">Falta muy poco</h2>
+        <div class="timer-container" id="countdown">
+            <div class="time-box"><span class="time-number" id="days">00</span><span class="time-label">Días</span></div>
+            <div class="time-box"><span class="time-number" id="hours">00</span><span class="time-label">Hs</span></div>
+            <div class="time-box"><span class="time-number" id="minutes">00</span><span class="time-label">Min</span></div>
+            <div class="time-box"><span class="time-number" id="seconds">00</span><span class="time-label">Seg</span></div>
+        </div>
+    </section>
+
+    <section class="locations">
+        <h2 class="section-title font-script" data-aos="fade-up">Dónde & Cuándo</h2>
+        
+        <div class="cards-grid">
+            <div class="location-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="card-icon"><i class="fas fa-church"></i></div>
+                <h3 class="card-title font-serif">Ceremonia</h3>
+                <span class="card-time">19:00 HRS</span>
+                <p class="card-address">Parroquia Nuestra Señora del Valle<br>Av. Principal 123</p>
+                <a href="https://maps.google.com" target="_blank" class="btn-custom">Ver Mapa</a>
+            </div>
+
+            <div class="location-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="card-icon"><i class="fas fa-glass-cheers"></i></div>
+                <h3 class="card-title font-serif">Recepción</h3>
+                <span class="card-time">21:30 HRS</span>
+                <p class="card-address">Salón de Eventos "El Castillo"<br>Calle Secundaria 456</p>
+                <a href="https://maps.google.com" target="_blank" class="btn-custom">Ver Mapa</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="parallax-divider">
+        <h2 class="parallax-text font-script">Agus</h2>
+    </div>
+
+    <section class="timeline-section" data-aos="fade-up">
+        <h2 class="section-title font-script" style="font-size: 2.5rem;">Itinerario</h2>
+        
+        <div class="timeline-item">
+            <div class="timeline-icon"><i class="fas fa-church"></i></div>
+            <div class="timeline-content">
+                <span class="timeline-time">19:00 hs</span>
+                <p>Ceremonia Religiosa</p>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-icon"><i class="fas fa-camera"></i></div>
+            <div class="timeline-content">
+                <span class="timeline-time">21:30 hs</span>
+                <p>Recepción & Fotos</p>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-icon"><i class="fas fa-utensils"></i></div>
+            <div class="timeline-content">
+                <span class="timeline-time">22:30 hs</span>
+                <p>Cena</p>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-icon"><i class="fas fa-music"></i></div>
+            <div class="timeline-content">
+                <span class="timeline-time">00:00 hs</span>
+                <p>¡Fiesta!</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="details-container">
+        <div class="detail-item" data-aos="fade-up">
+            <div class="detail-icon"><i class="fas fa-tshirt"></i></div>
+            <h3 class="font-serif" style="margin-bottom: 10px;">Dress Code</h3>
+            <p>Elegante Sport</p>
+        </div>
+        <div class="detail-item" data-aos="fade-up" data-aos-delay="100">
+            <div class="detail-icon"><i class="fas fa-gift"></i></div>
+            <h3 class="font-serif" style="margin-bottom: 10px;">Regalos</h3>
+            <p style="font-size: 0.9rem;">Si deseas hacerme un presente, podés depositarlo en el buzón en la entrada del salón.</p>
+        </div>
+    </section>
+
+    <section style="padding: 60px 20px; background-color: #fceff1;">
+        <h2 class="section-title font-script">Confirmación</h2>
+        <p style="margin-bottom: 30px;">Por favor confirmar asistencia antes del 10 de Octubre.</p>
+        
+        <a href="https://api.whatsapp.com/send?phone=5491100000000&text=Hola%20Agus!%20Confirmo%20mi%20asistencia%20a%20tus%20XV." target="_blank" class="btn-whatsapp">
+            <i class="fab fa-whatsapp"></i> Confirmar Asistencia
+        </a>
+    </section>
+
+    <footer>
+        <div class="footer-logo">Agustina</div>
+        <p>Hecho con amor para mis XV</p>
+        <small style="opacity: 0.5; margin-top: 10px; display: block;">&copy; 2024</small>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // INICIAR ANIMACIONES
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // --- LÓGICA DE CUENTA REGRESIVA (CONFIGURAR FECHA AQUÍ) ---
+        // CAMBIAR FECHA: Formato "Mes Dia, Año Hora:Minuto:Segundo"
+        const eventDate = new Date("October 20, 2024 19:00:00").getTime();
+
+        const timer = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = eventDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = days < 10 ? '0' + days : days;
+            document.getElementById("hours").innerText = hours < 10 ? '0' + hours : hours;
+            document.getElementById("minutes").innerText = minutes < 10 ? '0' + minutes : minutes;
+            document.getElementById("seconds").innerText = seconds < 10 ? '0' + seconds : seconds;
+
+            if (distance < 0) {
+                clearInterval(timer);
+                document.getElementById("countdown").innerHTML = "<h3>¡Hoy es el gran día!</h3>";
+            }
+        }, 1000);
+
+        // --- LÓGICA DEL REPRODUCTOR DE MÚSICA ---
+        const audio = document.getElementById("bgMusic");
+        const musicBtn = document.querySelector(".music-fab");
+        const musicIcon = document.getElementById("musicIcon");
+
+        function toggleMusic() {
+            if (audio.paused) {
+                audio.play();
+                musicBtn.classList.add("music-rotating");
+                musicIcon.classList.remove("fa-music");
+                musicIcon.classList.add("fa-pause");
+            } else {
+                audio.pause();
+                musicBtn.classList.remove("music-rotating");
+                musicIcon.classList.remove("fa-pause");
+                musicIcon.classList.add("fa-music");
+            }
+        }
+        
+        // Habilitar audio al primer click en la página (política de navegadores)
+        document.body.addEventListener('click', function() {
+            // Descomentar la siguiente línea si quieres que la música arranque sola al tocar la pantalla
+            // if(audio.paused) toggleMusic();
+        }, { once: true });
+
+    </script>
+</body>
+</html>
