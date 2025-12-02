@@ -14,7 +14,7 @@
 
     <style>
         /* ========================================================= */
-        /* --- CONFIGURACIÓN DE COLORES Y VARIABLES GLOBALES ---      */
+        /* --- CONFIGURACIÓN DE COLORES Y VARIABLES GLOBALES ---     */
         /* ========================================================= */
         :root {
             /* Paleta base: Rosa Viejo / Dorado / Crema */
@@ -36,6 +36,10 @@
             overflow-x: hidden;
             text-align: center;
             -webkit-font-smoothing: antialiased;
+        }
+
+        html {
+            scroll-behavior: smooth; /* Para el desplazamiento suave de la flecha */
         }
 
         h1, h2, h3 { font-weight: normal; }
@@ -64,18 +68,116 @@
         .music-rotating { animation: spin 4s linear infinite; }
         .music-fab i { color: var(--primary-color); font-size: 1.2rem; }
 
-        /* --- HERO SECTION (PORTADA) --- */
+        /* * =============================================
+         * --- HERO SECTION (PORTADA) ---
+         * =============================================
+         */
         header {
             height: 100vh;
-            /* IMAGEN DE FONDO - REEMPLAZAR URL */
-            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1512141633501-8eb941885b5f?q=80&w=2000&auto=format&fit=crop') no-repeat center center/cover;
+            background-color: var(--dark-bg); 
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             color: #fff;
-            position: relative;
+            position: relative; 
+            overflow: hidden;
         }
+
+        /* Asegura que el contenido del header esté por encima del slideshow */
+        header > div:not(.slideshow-bg),
+        header > h1 {
+            position: relative;
+            z-index: 10;
+        }
+
+        /* --- SLIDESHOW BACKGROUND STYLES (9 IMAGES) --- */
+        .slideshow-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0; 
+        }
+
+        /* Gradiente Oscuro para mantener legibilidad del texto */
+        .slideshow-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.4));
+            z-index: 5; 
+        }
+        
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
+            opacity: 0; 
+            transition: opacity 1.5s ease-in-out; 
+            animation-name: imageAnimation;
+            animation-duration: 45s; 
+            animation-iteration-count: infinite;
+            animation-timing-function: ease-in-out;
+        }
+        
+        /* Asignación de imágenes y delays con las 9 URLs de Cloudinary */
+        .slide:nth-child(1) { 
+            background-image: url('https://res.cloudinary.com/dgo3agrzb/image/upload/v1764638235/pixels_Fotografia_y_Video-157_hm5pmo.jpg'); 
+            animation-delay: 0s; 
+        }
+        .slide:nth-child(2) { 
+            background-image: url('https://res.cloudinary.com/dgo3agrzb/image/upload/v1764638234/pixels_Fotografia_y_Video-621_ujzwnx.jpg'); 
+            animation-delay: -5s; 
+        } 
+        .slide:nth-child(3) { 
+            background-image: url('https://res.cloudinary.com/dgo3agrzb/image/upload/v1764638233/pixels_Fotografia_y_Video-52_ehk1g8.jpg'); 
+            animation-delay: -10s; 
+        } 
+        .slide:nth-child(4) { 
+            background-image: url('https://res.cloudinary.com/dgo3agrzb/image/upload/v1764638232/pixels_Fotografia_y_Video-19_xwavqf.jpg'); 
+            animation-delay: -15s; 
+        } 
+        .slide:nth-child(5) { 
+            background-image: url('https://res.cloudinary.com/dgo3agrzb/image/upload/v1764638231/pixels_Fotografia_y_Video-655_k0u75h.jpg'); 
+            animation-delay: -20s; 
+        } 
+        .slide:nth-child(6) { 
+            background-image: url('https://res.cloudinary.com/dgo3agrzb/image/upload/v1764638232/pixels_Fotografia_y_Video-529_nmzxby.jpg'); 
+            animation-delay: -25s; 
+        } 
+        .slide:nth-child(7) { 
+            background-image: url('https://res.cloudinary.com/dgo3agrzb/image/upload/v1764638232/pixels_Fotografia_y_Video-6_d3uijd.jpg'); 
+            animation-delay: -30s; 
+        } 
+        .slide:nth-child(8) { 
+            background-image: url('https://res.cloudinary.com/dgo3agrzb/image/upload/v1764638232/pixels_Fotografia_y_Video-11_er06qs.jpg'); 
+            animation-delay: -35s; 
+        } 
+        .slide:nth-child(9) { 
+            background-image: url('https://res.cloudinary.com/dgo3agrzb/image/upload/v1764638231/pixels_Fotografia_y_Video-94_pi2s6y.jpg'); 
+            animation-delay: -40s; 
+        } 
+
+        /* Keyframes para la animación del slideshow */
+        @keyframes imageAnimation {
+            0% { opacity: 0; }
+            2.77% { opacity: 0.5; } 
+            8.34% { opacity: 0.5; } 
+            11.11% { opacity: 0; } 
+            100% { opacity: 0; }
+        }
+        /* --- FIN SLIDESHOW BACKGROUND STYLES --- */
+
 
         .hero-subtitle {
             font-size: 1.1rem;
@@ -92,7 +194,7 @@
             text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
             animation: zoomIn 2s ease;
         }
-
+        
         .hero-date {
             margin-top: 20px;
             font-size: 1.5rem;
@@ -100,14 +202,18 @@
             border-bottom: 1px solid rgba(255,255,255,0.8);
             padding: 10px 30px;
             animation: fadeInUp 1.5s ease;
+            margin-bottom: 80px; /* Espacio extra para bajar la flecha */
         }
 
+        /* MODIFICACIÓN DE POSICIÓN Y CURSOR */
         .arrow-down {
             position: absolute;
-            bottom: 30px;
+            bottom: 30px; /* Bajada de la flecha */
             animation: bounce 2s infinite;
             font-size: 1.5rem;
             opacity: 0.8;
+            cursor: pointer; /* Indica que es clickeable */
+            z-index: 20; /* Asegura que esté por encima de todo */
         }
 
         /* --- FRASE / INTRO --- */
@@ -243,12 +349,12 @@
             color: white;
             padding: 80px 20px;
             position: relative;
-            overflow: hidden; /* Para contener el efecto de polvo */
+            overflow: hidden; 
         }
 
         .route-content {
             position: relative;
-            z-index: 2; /* Asegura que el contenido esté por encima del polvo */
+            z-index: 2; 
             max-width: 800px;
             margin: 0 auto;
             display: flex;
@@ -259,7 +365,7 @@
 
         .route-title {
             font-family: 'Great Vibes', cursive;
-            font-size: 4.5rem; /* Ajustado para un mejor tamaño en móviles */
+            font-size: 4.5rem; 
             line-height: 1;
             text-shadow: 
                 0 0 5px var(--sparkle-color), 
@@ -282,7 +388,7 @@
             align-items: center;
             gap: 10px;
             padding: 15px 35px;
-            background-color: var(--sparkle-color); /* Fondo gris claro */
+            background-color: var(--sparkle-color); 
             color: black;
             text-decoration: none;
             text-transform: uppercase;
@@ -295,7 +401,7 @@
             box-shadow: 0 4px 15px rgba(224, 224, 224, 0.2);
         }
 
-        .btn-route::before { /* Efecto de flecha en el botón */
+        .btn-route::before { 
             content: '';
             position: absolute;
             top: 0;
@@ -319,7 +425,7 @@
             box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
         }
         .btn-route:hover::before {
-            right: -30px; /* Mueve la flecha en hover */
+            right: -30px; 
         }
 
         /* Efecto de polvo de estrellas */
@@ -328,14 +434,13 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 150px; /* Altura del efecto de polvo */
+            height: 150px; 
             background: radial-gradient(ellipse at 50% 100%, rgba(255,255,255,0.2) 0%, transparent 70%);
             background-repeat: no-repeat;
             background-size: 100% 100%;
             opacity: 0.8;
             pointer-events: none;
             z-index: 1;
-            /* Animación sutil de brillo o movimiento */
             animation: sparklePulse 5s infinite ease-in-out;
         }
         @keyframes sparklePulse {
@@ -379,6 +484,21 @@
             color: var(--text-color);
         }
 
+        /* --- FOOTER --- */
+        footer {
+            background-color: #333;
+            color: #eee;
+            padding: 40px 20px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        .footer-logo {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
 
         /* --- ANIMATIONS KEYFRAMES --- */
         @keyframes spin { 100% { transform: rotate(360deg); } }
@@ -388,7 +508,7 @@
         /* Media Queries para responsividad */
         @media (max-width: 768px) {
             .hero-title { font-size: 4rem; }
-            .hero-date { font-size: 1.2rem; padding: 8px 20px; }
+            .hero-date { font-size: 1.2rem; padding: 8px 20px; margin-bottom: 50px; }
             .section-title { font-size: 2.8rem; }
             .route-title { font-size: 3rem; }
             .route-event-text { font-size: 0.9rem; letter-spacing: 3px; }
@@ -399,20 +519,33 @@
 <body>
 
     <audio id="bgMusic" loop>
-        <source src="https://drive.google.com/uc?export=download&id=1CqWdBLJ-qJRvSgMP7NSBNk_0g3lZe37B" type="audio/mpeg">
+        <source src="https://res.cloudinary.com/dgo3agrzb/video/upload/v1764639011/Dove_Cameron_-_If_Only_Sub_Espa%C3%B1ol_Lyrics_-_Donovan_s_youtube_sfnerz.mp3" type="audio/mpeg">
     </audio>
     <div class="music-fab" onclick="toggleMusic()">
         <i class="fas fa-music" id="musicIcon"></i>
     </div>
 
     <header>
+        <div class="slideshow-bg">
+            <div class="slide"></div>
+            <div class="slide"></div>
+            <div class="slide"></div>
+            <div class="slide"></div>
+            <div class="slide"></div>
+            <div class="slide"></div>
+            <div class="slide"></div>
+            <div class="slide"></div>
+            <div class="slide"></div>
+        </div>
         <div class="hero-subtitle">MIS XV AÑOS</div>
         <h1 class="hero-title font-script">Marty</h1>
         <div class="hero-date font-serif">7 • MARZO • 2026</div>
-        <div class="arrow-down"><i class="fas fa-chevron-down"></i></div>
+        
+        <div class="arrow-down" id="scrollDownArrow">
+            <i class="fas fa-chevron-down"></i>
+        </div>
     </header>
-
-    <section class="intro" data-aos="fade-up">
+    <section class="intro" id="intro-section" data-aos="fade-up">
         <i class="fas fa-quote-left" style="color: var(--accent-color); font-size: 1.5rem; margin-bottom: 15px;"></i>
         <p class="intro-text font-serif">
             "Hay momentos inolvidables que se atesoran en el corazón para siempre, 
@@ -581,22 +714,30 @@
 
         function toggleMusic() {
             if (audio.paused) {
+                // Intenta reproducir
                 audio.play().catch(error => {
                     console.error("Error al iniciar la reproducción:", error);
-                    alert("Por favor, interactúa con la página para permitir la reproducción de música.");
+                    // Esto suele ocurrir en iOS/navegadores estrictos, ya se espera
                 });
                 musicBtn.classList.add("music-rotating");
                 musicIcon.classList.remove("fa-music");
                 musicIcon.classList.add("fa-pause");
             } else {
+                // Pausa
                 audio.pause();
                 musicBtn.classList.remove("music-rotating");
                 musicIcon.classList.remove("fa-pause");
                 musicIcon.classList.add("fa-music");
             }
         }
+
+        // --- LÓGICA DEL SCROLL DE LA FLECHA ---
+        document.getElementById('scrollDownArrow').addEventListener('click', function() {
+            // Se desplaza a la sección inmediatamente debajo del header, que es la sección 'intro'
+            document.getElementById('intro-section').scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
     </script>
 </body>
 </html>
-
-
