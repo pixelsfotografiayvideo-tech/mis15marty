@@ -17,12 +17,12 @@
         /* --- CONFIGURACIÓN DE COLORES Y VARIABLES GLOBALES ---     */
         /* ========================================================= */
         :root {
-            /* Paleta base: Rosa Viejo / Dorado / Crema */
+            /* Paleta base: Rosa Viejo / Dorado / Oscuro */
             --primary-color: #d4a373; /* Dorado suave */
             --accent-color: #e2b4bd;  /* Rosa Palo / Accent */
-            --bg-color: #faf9f6;      /* Blanco hueso */
-            --text-color: #555555;
-            --dark-bg: #2c2c2c;
+            --bg-color: #1a1a1a;      /* Fondo principal muy oscuro (similar a la sección La Ruta) */
+            --text-color: #eeeeee;    /* Texto general claro */
+            --dark-bg: #000000;       /* Fondo para secciones destacadas (negro puro) */
             --sparkle-color: #e0e0e0; /* Color base para el efecto de brillo/polvo */
         }
 
@@ -69,9 +69,9 @@
         .music-fab i { color: var(--primary-color); font-size: 1.2rem; }
 
         /* * =============================================
-         * --- HERO SECTION (PORTADA) ---
-         * =============================================
-         */
+          * --- HERO SECTION (PORTADA) ---
+          * =============================================
+          */
         header {
             height: 100vh;
             background-color: var(--dark-bg); 
@@ -226,12 +226,14 @@
             font-style: italic;
             font-size: 1.2rem;
             line-height: 1.8;
-            color: #777;
+            /* Se cambia el color a uno más claro para el fondo oscuro */
+            color: var(--accent-color); 
         }
 
         /* --- COUNTDOWN --- */
         .countdown-section {
-            background-color: #fff;
+            /* Se cambia el fondo blanco por el fondo oscuro */
+            background-color: var(--dark-bg);
             padding: 60px 20px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.03);
             margin: 0 20px;
@@ -267,7 +269,7 @@
             font-size: 3.5rem;
             color: var(--primary-color);
             margin-bottom: 40px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.1); /* Sombra clara para el fondo oscuro */
         }
 
         /* --- BOTONES --- */
@@ -286,7 +288,7 @@
             border-radius: 3px;
         }
 
-        .btn-custom:hover { background: var(--primary-color); color: #fff; }
+        .btn-custom:hover { background: var(--primary-color); color: var(--dark-bg); } /* Color del hover ajustado */
 
         .btn-whatsapp {
             background: #25D366;
@@ -307,7 +309,7 @@
         .parallax-divider {
             height: 350px;
             /* IMAGEN SEPARADORA - REEMPLAZAR URL */
-            background: url('https://images.unsplash.com/photo-1520052205864-92d242b3a76b?q=80&w=1500&auto=format&fit=crop') fixed center;
+            background: url('https://res.cloudinary.com/dgo3agrzb/image/upload/v1764723418/pixels_Fotografia_y_Video_yarwph.jpg') fixed center;
             background-size: cover;
             display: flex;
             align-items: center;
@@ -329,7 +331,8 @@
             justify-content: center;
             gap: 40px;
             padding: 60px 20px;
-            background: #fff;
+            /* Se cambia el fondo blanco por el fondo oscuro */
+            background: var(--dark-bg);
         }
         .detail-item { max-width: 300px; }
         .detail-icon { font-size: 2.5rem; color: var(--accent-color); margin-bottom: 15px; }
@@ -337,7 +340,8 @@
         /* Estilo para las secciones de contenido */
         .songs-section, .menu-section {
             padding: 80px 20px;
-            background-color: #f7f7f7; /* Fondo ligeramente diferente para contraste */
+            /* Se ajusta el fondo para mantener un contraste sutil en modo oscuro */
+            background-color: #222222; 
         }
         .menu-section {
             background-color: var(--bg-color);
@@ -345,7 +349,7 @@
 
         /* --- SECCIÓN "LA RUTA EVENTOS" --- */
         .route-section {
-            background-color: black;
+            background-color: var(--dark-bg); /* Mantenemos el negro puro para esta sección */
             color: white;
             padding: 80px 20px;
             position: relative;
@@ -461,17 +465,18 @@
         }
         .ticket-table {
             margin: 40px 0;
-            background: #fff;
+            /* Se cambia el fondo blanco a oscuro para la tabla */
+            background: #2c2c2c;
             padding: 30px;
             border-radius: 15px;
-            border: 1px solid rgba(0,0,0,0.05);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.04);
+            border: 1px solid rgba(255,255,255,0.05); /* Borde claro y sutil */
+            box-shadow: 0 5px 20px rgba(0,0,0,0.4);
         }
         .ticket-row {
             display: flex;
             justify-content: space-between;
             padding: 12px 0;
-            border-bottom: 1px solid rgba(0,0,0,0.07);
+            border-bottom: 1px solid rgba(255,255,255,0.1); /* Separador claro */
             font-size: 1.2rem;
         }
         .ticket-row:last-child {
@@ -576,8 +581,7 @@
     </section>
     
     <div class="parallax-divider">
-        <h2 class="parallax-text font-script">Marty</h2>
-    </div>
+        </div>
 
     <section class="details-container">
         <div class="detail-item" data-aos="fade-up">
@@ -636,12 +640,12 @@
             Ayúdanos a elegir tu plato y a conocer si tienes alguna restricción alimentaria.
         </p>
         
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeyMz_vq1XmhexId7w6FmYoJEWZTOwSNlS7681e2F0m8VmEGw/viewform?usp=header" target="_blank" class="btn-custom" style="margin-bottom: 0px; background-color: var(--accent-color); color: white; border-color: var(--accent-color);">
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeyMz_vq1XmhexId7w6FmYoJEWZTOwSNlS7681e2F0m8VmEGw/viewform?usp=header" target="_blank" class="btn-custom" style="margin-bottom: 0px; background-color: var(--accent-color); color: var(--dark-bg); border-color: var(--accent-color);">
             <i class="fas fa-utensils"></i> Ir al Formulario de Comida
         </a>
     </section>
 
-    <section class="songs-section" data-aos="fade-up" style="background-color: #fceff1;">
+    <section class="songs-section" data-aos="fade-up" style="background-color: #222222;">
         <h2 class="section-title font-script">Pista de Baile</h2>
         <p style="max-width: 700px; margin: 0 auto 30px;">
             ¡Queremos que no pares de bailar! Sugiere tu canción favorita para escucharla en la fiesta.
@@ -660,7 +664,7 @@
     </section>
 
 
-    <section style="padding: 60px 20px; background-color: #fff;">
+    <section style="padding: 60px 20px; background-color: var(--dark-bg);">
         <h2 class="section-title font-script">Confirmación</h2>
         <p style="max-width: 600px; margin: 0 auto 30px;">Por favor confirmar asistencia antes del 10 de Octubre.</p>
         
